@@ -21,9 +21,6 @@ class DQNModuleFeedforward(DQNModuleBase):
         """
 
         batch_size = x_screens.size(0)
-
-        for x in x_variables:
-            x.unsqueeze_(0)
         
         assert x_screens.ndimension() == 4
         assert len(x_variables) == self.n_variables
