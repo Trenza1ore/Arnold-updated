@@ -88,9 +88,8 @@ class ActionBuilder(object):
                            for k in self.available_buttons]
             return doom_action
         else:
-            a = action if type(action) == int else int(action.item())
-            assert type(a) is int
-            return self.doom_actions[a]
+            assert type(action) is int
+            return self.doom_actions[action]
 
 
 action_categories_discrete = {
