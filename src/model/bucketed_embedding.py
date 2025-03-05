@@ -10,4 +10,4 @@ class BucketedEmbedding(nn.Embedding):
 
     def forward(self, indices):
         x = super(BucketedEmbedding, self).forward(indices // self.bucket_size)
-        return x.squeeze(0) if x.ndim > 2 else x
+        return x.unsqueeze_(0) if x.ndim < 2 else x
