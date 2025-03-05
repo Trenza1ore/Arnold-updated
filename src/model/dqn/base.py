@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 from logging import getLogger
 
 from ...utils import bool_flag
@@ -205,7 +204,7 @@ class DQN(object):
             if pred_features is not None:
                 assert pred_features.size() == (1, seq_len, self.module.n_features)
                 pred_features = pred_features[0, -1]
-        action_id = scores.data.max(0)[1]
+        action_id = scores.data.max(0)[1].item()
         self.pred_features = pred_features
         return action_id
 
