@@ -127,7 +127,7 @@ class DQNRecurrent(DQN):
         # dqn loss
         loss_sc = self.loss_fn_sc(
             scores1.view(batch_size, -1)[:, -self.params.n_rec_updates:],
-            torch.Tensor(scores2.data[:, -self.params.n_rec_updates:])
+            scores2[:, -self.params.n_rec_updates:]
         )
 
         # game features loss
