@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 from .base import DQNModuleBase, DQN
-
 
 class DQNModuleFeedforward(DQNModuleBase):
 
