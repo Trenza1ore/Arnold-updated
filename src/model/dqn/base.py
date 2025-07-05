@@ -119,6 +119,7 @@ class DQN(object):
 
     def get_var(self, x):
         """Move a tensor to a CPU / GPU variable."""
+        x = x.detach()
         return x.cuda() if self.cuda else x
 
     def reset(self):
@@ -183,8 +184,8 @@ class DQN(object):
         return screens, variables, features, actions, rewards, isfinal
 
     def register_loss(self, loss_history, loss_sc, loss_gf):
-        loss_history['dqn_loss'].append(loss_sc.data.cpu().numpy())
-        loss_history['gf_loss'].append(loss_gf.data.cpu().numpy()
+        loss_history['dqn_loss'].append(loss_sc.cpu().item())
+        loss_history['gf_loss'].append(loss_gf.cpu().item()
                                        if self.n_features else 0)
 
     def next_action(self, last_states, save_graph=False):

@@ -23,8 +23,9 @@ class DQNModuleFeedforward(DQNModuleBase):
         assert x_screens.ndimension() == 4
         assert len(x_variables) == self.n_variables
 
-        #assert all(x.ndimension() == 0 and len(list(x.size())) == batch_size
-        #            for x in x_variables)
+        if batch_size > 1:
+            assert all(x.ndimension() == 1 and x.size(0) == batch_size for x in x_variables), \
+                f"{[(x.ndimension(), x.size(), x) for x in x_variables]} {batch_size}"
 
         # state input (screen / depth / labels buffer + variables)
         state_input, output_gf = self.base_forward(x_screens, x_variables)
@@ -82,7 +83,7 @@ class DQNFeedforward(DQN):
         )
 
         # dqn loss
-        loss_sc = self.loss_fn_sc(scores1, scores2)
+        loss_sc = self.loss_fn_sc(scores1, scores2.detach())
 
         # game features loss
         loss_gf = 0
